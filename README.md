@@ -20,10 +20,10 @@ pip install bambu-ajax
 Add it to your `INSTALLED_APPS` list:
 
 ```python
-    INSTALLED_APPS = (
-        ...
-        'bambu.ajax'
-    )
+INSTALLED_APPS = (
+    ...
+    'bambu.ajax'
+)
 ```
 
 Add `bambu.ajax.urls` to your URLconf:

@@ -24,10 +24,10 @@ Add it to your ``INSTALLED_APPS`` list:
 
 .. code:: python
 
-        INSTALLED_APPS = (
-            ...
-            'bambu.ajax'
-        )
+    INSTALLED_APPS = (
+        ...
+        'bambu.ajax'
+    )
 
 Add ``bambu.ajax.urls`` to your URLconf:
 
