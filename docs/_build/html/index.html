@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Bambu AJAX &mdash; Bambu AJAX 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Bambu AJAX 1.0 documentation" href="#" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="#">Bambu AJAX 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bambu-ajax">
+<h1>Bambu AJAX<a class="headerlink" href="#bambu-ajax" title="Permalink to this headline">¶</a></h1>
+<p>AJAX utility functions for Django that can be accessed via a single URL
+(ala WordPress admin-ajax.php)</p>
+<div class="section" id="about-bambu-ajax">
+<h2>About Bambu AJAX<a class="headerlink" href="#about-bambu-ajax" title="Permalink to this headline">¶</a></h2>
+<p>Bambu AJAX lets you write utility functions for your Django apps that
+can be called via AJAX, without having to specify a separate URL pattern
+and view for each one.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Install the package via Pip:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install bambu-ajax
+</pre></div>
+</div>
+<p>Add it to your <tt class="docutils literal"><span class="pre">INSTALLED_APPS</span></tt> list:</p>
+<div class="code python highlight-python"><div class="highlight"><pre>INSTALLED_APPS = (
+    ...
+    &#39;bambu.ajax&#39;
+)
+</pre></div>
+</div>
+<p>Add <tt class="docutils literal"><span class="pre">bambu.ajax.urls</span></tt> to your URLconf:</p>
+<div class="code python highlight-python"><div class="highlight"><pre>urlpatterns = patterns(&#39;&#39;,
+    ...
+    url(r&#39;^ajax/&#39;, include(&#39;bambu.ajax.urls&#39;)),
+)
+</pre></div>
+</div>
+</div>
+<div class="section" id="basic-usage">
+<h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
+<p>Create a file called <tt class="docutils literal"><span class="pre">ajax.php</span></tt> within your Django app, and import the
+necessary module from the <tt class="docutils literal"><span class="pre">bambu-ajax</span></tt> package, like so:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">bambu.ajax</span> <span class="kn">import</span> <span class="n">site</span>
+
+<span class="nd">@site.register</span>
+<span class="k">def</span> <span class="nf">my_ajax_function</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;list&#39;</span><span class="p">,</span> <span class="s">&#39;of&#39;</span><span class="p">,</span> <span class="s">&#39;things&#39;</span>
+    <span class="p">]</span>
+</pre></div>
+</div>
+<p>Using the <tt class="docutils literal"><span class="pre">site.register</span></tt> decorator registers your AJAX function with
+the <tt class="docutils literal"><span class="pre">bambu.ajax</span></tt> view.</p>
+<p>To leverage this function from within a Django template, use the
+<tt class="docutils literal"><span class="pre">ajaxurl</span></tt> template tag, like so:</p>
+<div class="code html highlight-python"><div class="highlight"><pre>{% load ajax %}
+&lt;script&gt;
+    $.getJSON(&#39;{% ajaxurl &#39;my_project.my_app.my_ajax_function&#39; %}&amp;callback=?&#39;,
+        function(data) {
+            console.log(data);
+        }
+    );
+&lt;/script&gt;
+</pre></div>
+</div>
+<p>Here, <tt class="docutils literal"><span class="pre">my_project</span></tt> should refer to the name of your Django project,
+<tt class="docutils literal"><span class="pre">my_app</span></tt> should be the name of the app you put your <tt class="docutils literal"><span class="pre">ajax.py</span></tt> file
+in, and <tt class="docutils literal"><span class="pre">my_ajax_function</span></tt> is the name of the function you defined
+within <tt class="docutils literal"><span class="pre">ajax.py</span></tt>.</p>
+<p>The notation is similar to that used when referring to Django models, in
+that you always skip the common portion <tt class="docutils literal"><span class="pre">ajax</span></tt> from the naming
+convention.</p>
+</div>
+<div class="section" id="shortcut">
+<h2>Shortcut<a class="headerlink" href="#shortcut" title="Permalink to this headline">¶</a></h2>
+<p>Make your life easier by including the utility library in your template:</p>
+<div class="code html highlight-python"><div class="highlight"><pre>&lt;script src=&quot;{% url ajax_utility %}&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    bambu.ajax.get(&#39;poddle.podcasting.my_ajax_function&#39;,
+        function(data) {
+            console.log(data);
+        }
+    );
+&lt;/script&gt;
+</pre></div>
+</div>
+<p>This achieves the same result, but in a much cleaner way.</p>
+</div>
+<div class="section" id="dynamically-updating-page-content">
+<h2>Dynamically updating page content<a class="headerlink" href="#dynamically-updating-page-content" title="Permalink to this headline">¶</a></h2>
+<p>As well as returning JSON-serialisable data per the examples above, you
+can also use AJAX functions just like views, in that they can return an
+<tt class="docutils literal"><span class="pre">HttpResponse</span></tt> object.</p>
+<p>Using that method, the example above would print out the HTML (or other
+data) returned in the HTTP response.</p>
+</div>
+<div class="section" id="additional-decorators">
+<h2>Additional decorators<a class="headerlink" href="#additional-decorators" title="Permalink to this headline">¶</a></h2>
+<p>You can of course add other decorators, just as you would with normal
+views.</p>
+</div>
+<div class="section" id="todo">
+<h2>Todo<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Add a dedicated <tt class="docutils literal"><span class="pre">login_required</span></tt> decorator that returns a more
+helpful response for anonymous users</li>
+<li>Look into integrating this with <a class="reference external" href="http://iamsteadman.github.io/plunja/">Plunja</a>, my dynamic JavaScript
+templating library.</li>
+</ul>
+</div>
+<div class="section" id="questions-or-suggestions">
+<h2>Questions or suggestions?<a class="headerlink" href="#questions-or-suggestions" title="Permalink to this headline">¶</a></h2>
+<p>Find me on Twitter (&#64;iamsteadman) or <a class="reference external" href="http://steadman.io/">visit my blog</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Bambu AJAX</a><ul>
+<li><a class="reference internal" href="#about-bambu-ajax">About Bambu AJAX</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#basic-usage">Basic usage</a></li>
+<li><a class="reference internal" href="#shortcut">Shortcut</a></li>
+<li><a class="reference internal" href="#dynamically-updating-page-content">Dynamically updating page content</a></li>
+<li><a class="reference internal" href="#additional-decorators">Additional decorators</a></li>
+<li><a class="reference internal" href="#todo">Todo</a></li>
+<li><a class="reference internal" href="#questions-or-suggestions">Questions or suggestions?</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="#">Bambu AJAX 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Steadman.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
