@@ -26,16 +26,16 @@ Add it to your ``INSTALLED_APPS`` list:
 
     INSTALLED_APPS = (
         ...
-        'bambu.ajax'
+        'bambu_ajax'
     )
 
-Add ``bambu.ajax.urls`` to your URLconf:
+Add ``bambu_ajax.urls`` to your URLconf:
 
 .. code:: python
 
     urlpatterns = patterns('',
         ...
-        url(r'^ajax/', include('bambu.ajax.urls')),
+        url(r'^ajax/', include('bambu_ajax.urls')),
     )
 
 Basic usage
@@ -46,7 +46,7 @@ necessary module from the ``bambu-ajax`` package, like so:
 
 .. code:: python
 
-    from bambu.ajax import site
+    from bambu_ajax import site
 
     @site.register
     def my_ajax_function(request):
@@ -55,7 +55,7 @@ necessary module from the ``bambu-ajax`` package, like so:
         ]
 
 Using the ``site.register`` decorator registers your AJAX function with
-the ``bambu.ajax`` view.
+the ``bambu_ajax`` view.
 
 To leverage this function from within a Django template, use the
 ``ajaxurl`` template tag, like so:
@@ -87,9 +87,9 @@ Make your life easier by including the utility library in your template:
 
 .. code:: html
 
-    <script src="{% url ajax_utility %}"></script>
+    <script src="{% url 'ajax_utility' %}"></script>
     <script>
-        bambu.ajax.get('poddle.podcasting.my_ajax_function',
+        bambu.ajax.get('my_project.my_app.my_ajax_function',
             function(data) {
                 console.log(data);
             }

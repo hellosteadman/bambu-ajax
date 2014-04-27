@@ -1,7 +1,7 @@
 from django.template import Library, TemplateSyntaxError
 from django.core.urlresolvers import reverse
 from django.utils.http import urlencode
-from bambu.ajax import site
+from bambu_ajax import site
 
 register = Library()
 

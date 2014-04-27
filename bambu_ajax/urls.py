@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
-from bambu.ajax import autodiscover
-from bambu.ajax.views import utility, endpoint
+from bambu_ajax import autodiscover
+from bambu_ajax.views import utility, endpoint
 
 autodiscover()
 urlpatterns = patterns('',

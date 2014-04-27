@@ -1,4 +1,4 @@
-from bambu.ajax import site
+from bambu_ajax import site
 
 @site.register
 def test_function(request):

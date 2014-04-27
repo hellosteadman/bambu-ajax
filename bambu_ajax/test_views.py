@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase, RequestFactory
-from bambu.ajax.views import endpoint
-from bambu.ajax import autodiscover
+from bambu_ajax.views import endpoint
+from bambu_ajax import autodiscover
 
 try:
     import json
@@ -21,7 +21,7 @@ class AJAXViewTestCase(TestCase):
 
     def test_test_function(self):
         request = self.factory.get(
-            '/ajax/endpoint.js?f=bambu.ajax.test.test_function'
+            '/ajax/endpoint.js?f=bambu_ajax.test.test_function'
         )
 
         request.user = self.user

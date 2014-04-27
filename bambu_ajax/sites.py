@@ -18,8 +18,8 @@ class AjaxSite(object):
 	def register(self, view):
 		mod = []
 
-		if view.__module__.startswith('bambu.ajax.test.'):
-			key = 'bambu.ajax.test.%s' % view.__name__
+		if view.__module__.startswith('bambu_ajax.test.'):
+			key = 'bambu_ajax.test.%s' % view.__name__
 		else:
 			for part in view.__module__.split('.'):
 				if part == 'ajax':

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Bambu AJAX &mdash; Bambu AJAX 1.0 documentation</title>
+    <title>Bambu AJAX &mdash; Bambu AJAX 2.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0',
+        VERSION:     '2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Bambu AJAX 1.0 documentation" href="#" /> 
+    <link rel="top" title="Bambu AJAX 2.0 documentation" href="#" /> 
   </head>
   <body>
     <div class="related">
@@ -32,7 +32,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="#">Bambu AJAX 1.0 documentation</a> &raquo;</li> 
+        <li><a href="#">Bambu AJAX 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -60,14 +60,14 @@ and view for each one.</p>
 <p>Add it to your <tt class="docutils literal"><span class="pre">INSTALLED_APPS</span></tt> list:</p>
 <div class="code python highlight-python"><div class="highlight"><pre>INSTALLED_APPS = (
     ...
-    &#39;bambu.ajax&#39;
+    &#39;bambu_ajax&#39;
 )
 </pre></div>
 </div>
-<p>Add <tt class="docutils literal"><span class="pre">bambu.ajax.urls</span></tt> to your URLconf:</p>
+<p>Add <tt class="docutils literal"><span class="pre">bambu_ajax.urls</span></tt> to your URLconf:</p>
 <div class="code python highlight-python"><div class="highlight"><pre>urlpatterns = patterns(&#39;&#39;,
     ...
-    url(r&#39;^ajax/&#39;, include(&#39;bambu.ajax.urls&#39;)),
+    url(r&#39;^ajax/&#39;, include(&#39;bambu_ajax.urls&#39;)),
 )
 </pre></div>
 </div>
@@ -76,7 +76,7 @@ and view for each one.</p>
 <h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
 <p>Create a file called <tt class="docutils literal"><span class="pre">ajax.php</span></tt> within your Django app, and import the
 necessary module from the <tt class="docutils literal"><span class="pre">bambu-ajax</span></tt> package, like so:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">bambu.ajax</span> <span class="kn">import</span> <span class="n">site</span>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">bambu_ajax</span> <span class="kn">import</span> <span class="n">site</span>
 
 <span class="nd">@site.register</span>
 <span class="k">def</span> <span class="nf">my_ajax_function</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
@@ -86,7 +86,7 @@ necessary module from the <tt class="docutils literal"><span class="pre">bambu-a
 </pre></div>
 </div>
 <p>Using the <tt class="docutils literal"><span class="pre">site.register</span></tt> decorator registers your AJAX function with
-the <tt class="docutils literal"><span class="pre">bambu.ajax</span></tt> view.</p>
+the <tt class="docutils literal"><span class="pre">bambu_ajax</span></tt> view.</p>
 <p>To leverage this function from within a Django template, use the
 <tt class="docutils literal"><span class="pre">ajaxurl</span></tt> template tag, like so:</p>
 <div class="code html highlight-python"><div class="highlight"><pre>{% load ajax %}
@@ -110,9 +110,9 @@ convention.</p>
 <div class="section" id="shortcut">
 <h2>Shortcut<a class="headerlink" href="#shortcut" title="Permalink to this headline">¶</a></h2>
 <p>Make your life easier by including the utility library in your template:</p>
-<div class="code html highlight-python"><div class="highlight"><pre>&lt;script src=&quot;{% url ajax_utility %}&quot;&gt;&lt;/script&gt;
+<div class="code html highlight-python"><div class="highlight"><pre>&lt;script src=&quot;{% url &#39;ajax_utility&#39; %}&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
-    bambu.ajax.get(&#39;poddle.podcasting.my_ajax_function&#39;,
+    bambu.ajax.get(&#39;my_project.my_app.my_ajax_function&#39;,
         function(data) {
             console.log(data);
         }
@@ -199,7 +199,7 @@ templating library.</li>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="#">Bambu AJAX 1.0 documentation</a> &raquo;</li> 
+        <li><a href="#">Bambu AJAX 2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

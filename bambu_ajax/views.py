@@ -1,4 +1,4 @@
-from bambu.ajax import site
+from bambu_ajax import site
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.template.response import TemplateResponse
 
