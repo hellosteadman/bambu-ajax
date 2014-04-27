@@ -9,6 +9,12 @@ Bambu AJAX lets you write utility functions for your Django apps that
 can be called via AJAX, without having to specify a separate URL pattern
 and view for each one.
 
+## About Bambu Tools 2.0
+
+This is part of a toolset called Bambu Tools. It's being moved from a namespace of `bambu` to its own
+'root-level' package, along with all the other tools in the set. If you're upgrading from a version prior
+to 2.0, please make sure to update your code to use `bambu_ajax` rather than `bambu.ajax`.
+
 ## Installation
 
 Install the package via Pip:

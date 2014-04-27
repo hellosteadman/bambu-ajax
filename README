@@ -11,6 +11,15 @@ Bambu AJAX lets you write utility functions for your Django apps that
 can be called via AJAX, without having to specify a separate URL pattern
 and view for each one.
 
+About Bambu Tools 2.0
+---------------------
+
+This is part of a toolset called Bambu Tools. It's being moved from a
+namespace of ``bambu`` to its own 'root-level' package, along with all
+the other tools in the set. If you're upgrading from a version prior to
+2.0, please make sure to update your code to use ``bambu_ajax`` rather
+than ``bambu.ajax``.
+
 Installation
 ------------
 
@@ -22,7 +31,7 @@ Install the package via Pip:
 
 Add it to your ``INSTALLED_APPS`` list:
 
-.. code:: python
+::
 
     INSTALLED_APPS = (
         ...
@@ -31,7 +40,7 @@ Add it to your ``INSTALLED_APPS`` list:
 
 Add ``bambu_ajax.urls`` to your URLconf:
 
-.. code:: python
+::
 
     urlpatterns = patterns('',
         ...
@@ -44,7 +53,7 @@ Basic usage
 Create a file called ``ajax.php`` within your Django app, and import the
 necessary module from the ``bambu-ajax`` package, like so:
 
-.. code:: python
+::
 
     from bambu_ajax import site
 
@@ -60,7 +69,7 @@ the ``bambu_ajax`` view.
 To leverage this function from within a Django template, use the
 ``ajaxurl`` template tag, like so:
 
-.. code:: html
+::
 
     {% load ajax %}
     <script>
@@ -85,7 +94,7 @@ Shortcut
 
 Make your life easier by including the utility library in your template:
 
-.. code:: html
+::
 
     <script src="{% url 'ajax_utility' %}"></script>
     <script>
@@ -119,13 +128,11 @@ Todo
 
 -  Add a dedicated ``login_required`` decorator that returns a more
    helpful response for anonymous users
--  Look into integrating this with `Plunja`_, my dynamic JavaScript
-   templating library.
+-  Look into integrating this with
+   `Plunja <http://iamsteadman.github.io/plunja/>`_, my dynamic
+   JavaScript templating library.
 
 Questions or suggestions?
 -------------------------
 
-Find me on Twitter (@iamsteadman) or `visit my blog`_.
-
-.. _Plunja: http://iamsteadman.github.io/plunja/
-.. _visit my blog: http://steadman.io/
+Find me on Twitter (@iamsteadman) or `visit my blog <http://steadman.io/>`_.
