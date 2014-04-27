@@ -23,6 +23,9 @@ setup(
 			'static/blog/*.js'
 		]
 	},
+	install_requires = [
+        'Django>=1.4'
+    ],
 	classifiers = [
 		'Development Status :: 4 - Beta',
 		'Environment :: Web Environment',
