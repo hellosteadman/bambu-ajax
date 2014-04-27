@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Test</title>
+		<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script src="{% url 'ajax_utility' %}"></script>
+	</head>
+	<body>
+		<script>
+		    bambu.ajax.get('testproject.myapp.my_ajax_function',
+		        function(data) {
+		            document.write(data.join(' '));
+		        }
+		    );
+		</script>
+	</body>
+</html>
